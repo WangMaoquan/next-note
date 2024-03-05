@@ -1,11 +1,10 @@
-import { Note } from 'types/Notes';
 import { SidebarNoteItem } from './SidebarNoteItem';
+import { getAllNotes } from '@/lib/redis';
 
-interface NoteListProps {
-  notes: Record<string, string>;
-}
-
-export default async function NoteList({ notes }: NoteListProps) {
+export default async function NoteList() {
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  await sleep(10000);
+  const notes = await getAllNotes();
   const data = Object.entries(notes);
   if (data.length === 0) {
     return <div className="notes-empty">No notes created yet!</div>;

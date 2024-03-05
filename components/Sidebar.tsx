@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllNotes } from '@/lib/redis';
-import SideBarNoteList from '@/components/SidebarNoteList';
 import EditButton from './EditButton';
+import { Suspense } from 'react';
+import NoteListSkeleton from './NoteListSkeleton';
+import SidebarNoteList from '@/components/SidebarNoteList';
 
 export default async function Sidebar() {
-  const notes = await getAllNotes();
   return (
     <>
       <section className="col sidebar">
@@ -26,7 +26,9 @@ export default async function Sidebar() {
           <EditButton>new</EditButton>
         </section>
         <nav>
-          <SideBarNoteList notes={notes} />
+          <Suspense fallback={<NoteListSkeleton />}>
+            <SidebarNoteList />
+          </Suspense>
         </nav>
       </section>
     </>
