@@ -3,7 +3,7 @@ import { SidebarNoteItem } from './SidebarNoteItem';
 import { getAllNotes } from '@/lib/redis';
 
 export default async function NoteList() {
-  await sleep(1000);
+  // await sleep(1000);
   const notes = await getAllNotes();
   const data = Object.entries(notes);
   if (data.length === 0) {

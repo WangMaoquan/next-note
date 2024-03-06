@@ -25,4 +25,18 @@ export async function getNote(noteId: string) {
   return JSON.parse(noteStr);
 }
 
+export async function addNote(data: string) {
+  const noteId = Date.now().toString();
+  await redis.hset('notes', noteId, data);
+  return noteId;
+}
+
+export async function updateNote(noteId: string, data: string) {
+  await redis.hset('notes', noteId, data);
+}
+
+export async function delNote(noteId: string) {
+  return redis.hdel('notes', noteId);
+}
+
 export default redis;
