@@ -20,4 +20,9 @@ export async function getAllNotes() {
   return shouldInit ? initData : data;
 }
 
+export async function getNote(noteId: string) {
+  const noteStr = (await redis.hget('notes', noteId)) || '';
+  return JSON.parse(noteStr);
+}
+
 export default redis;

@@ -1,9 +1,9 @@
+import { sleep } from '@/utils';
 import { SidebarNoteItem } from './SidebarNoteItem';
 import { getAllNotes } from '@/lib/redis';
 
 export default async function NoteList() {
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-  await sleep(10000);
+  await sleep(1000);
   const notes = await getAllNotes();
   const data = Object.entries(notes);
   if (data.length === 0) {
