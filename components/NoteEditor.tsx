@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import NotePreview from '@/components/NotePreview';
-import { useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { deleteNote, saveNote } from '../app/actions';
-import Image from 'next/image';
+import SaveButton from './SaveButton';
+import DeleteButton from './DeleteButton';
+import { State } from 'types/EditState';
 
 interface NoteEditorProps {
   noteId?: string;
@@ -12,12 +14,17 @@ interface NoteEditorProps {
   initialBody?: string;
 }
 
+const initialState: State = {
+  message: '',
+};
+
 export default function NoteEditor({
   noteId,
   initialTitle,
   initialBody,
 }: NoteEditorProps) {
-  const { pending } = useFormStatus();
+  const [saveState, saveFormAction] = useFormState(saveNote, initialState);
+  const [, delFormAction] = useFormState(deleteNote, initialState);
   const [title, setTitle] = useState(initialTitle);
   const [body, setBody] = useState(initialBody || '');
   const isDraft = !noteId;
@@ -27,40 +34,10 @@ export default function NoteEditor({
       <form className="note-editor-form" autoComplete="off">
         <div className="note-editor-menu" role="menubar">
           <input type="hidden" name="noteId" value={noteId} />
-          <button
-            className="note-editor-done"
-            disabled={pending}
-            type="submit"
-            formAction={saveNote}
-            role="menuitem"
-          >
-            <Image
-              src="/checkmark.svg"
-              width="14"
-              height="10"
-              alt=""
-              role="presentation"
-            />
-            Done
-          </button>
-          {!isDraft && (
-            <button
-              className="note-editor-delete"
-              disabled={pending}
-              formAction={deleteNote}
-              role="menuitem"
-            >
-              <Image
-                src="/cross.svg"
-                width="10"
-                height="10"
-                alt=""
-                role="presentation"
-              />
-              Delete
-            </button>
-          )}
+          <SaveButton formAction={saveFormAction} />
+          <DeleteButton isDraft={isDraft} formAction={delFormAction} />
         </div>
+        <div className="note-editor-menu">{saveState?.message}</div>
         <label className="offscreen" htmlFor="note-title-input">
           Enter a title for your note
         </label>
