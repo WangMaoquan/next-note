@@ -1,6 +1,8 @@
 import { sleep } from '@/utils';
 import { SidebarNoteItem } from './SidebarNoteItem';
 import { getAllNotes } from '@/lib/redis';
+import SidebarNoteList from './SidebarNoteListFilter';
+import SidebarNoteItemHeader from './SidebarNoteItemHeader';
 
 export default async function NoteList() {
   // await sleep(1000);
@@ -10,14 +12,20 @@ export default async function NoteList() {
     return <div className="notes-empty">No notes created yet!</div>;
   }
   return (
-    <ul className="notes-list">
-      {data.map(([id, note]) => {
-        return (
-          <li key={id}>
-            <SidebarNoteItem noteId={id} note={note} />
-          </li>
-        );
+    <SidebarNoteList
+      notes={Object.entries(notes).map(([noteId, note]) => {
+        const noteData = JSON.parse(note);
+        return {
+          noteId,
+          note: noteData,
+          header: (
+            <SidebarNoteItemHeader
+              title={noteData.title}
+              updateTime={noteData.updateTime}
+            />
+          ),
+        };
       })}
-    </ul>
+    />
   );
 }
