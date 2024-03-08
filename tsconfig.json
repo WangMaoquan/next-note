@@ -31,6 +31,12 @@
       ],
       "@/utils": [
         "utils"
+      ],
+      "@/actions": [
+        "app/[lng]/actions.ts"
+      ],
+      "@/config": [
+        "config.ts"
       ]
     }
   },

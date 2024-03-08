@@ -1,12 +1,22 @@
 import Sidebar from '@/components/Sidebar';
+import { locales } from '@/config';
+
+// 用于构建静态路由
+export async function generateStaticParams() {
+  return locales.map((lng) => ({ lng }));
+}
 
 export default function RootLayout({
   children,
+  params: { lng },
 }: Readonly<{
   children: React.ReactNode;
+  params: {
+    lng: 'zn' | 'en';
+  };
 }>) {
   return (
-    <html lang="en">
+    <html lang={lng}>
       <body>
         <div className="container">
           <div className="main">
