@@ -1,3 +1,4 @@
+import { Footer } from '@/components/Footer';
 import Sidebar from '@/components/Sidebar';
 import { locales } from '@/config';
 
@@ -23,6 +24,7 @@ export default function RootLayout({
             <Sidebar lng={lng} />
             <section className="col note-viewer">{children}</section>
           </div>
+          <Footer lng={lng} />
         </div>
       </body>
     </html>
