@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslation } from 'app/i18n';
+import { useTranslation } from 'app/i18n/client';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
@@ -19,7 +19,7 @@ interface SidebarSearchFieldProps {
 }
 
 export default function SidebarSearchField({ lng }: SidebarSearchFieldProps) {
-  const t = useTranslation(lng);
+  const { t } = useTranslation(lng, 'basic');
   const { replace } = useRouter();
   const pathname = usePathname();
   // 非常适合在这种频繁非紧急的更新中使用，有效防止造成阻塞
@@ -45,7 +45,7 @@ export default function SidebarSearchField({ lng }: SidebarSearchFieldProps) {
       </label>
       <input
         id="sidebar-search-input"
-        placeholder="Search"
+        placeholder={t('search')}
         type="text"
         onChange={(e) => handleSearch(e.target.value)}
       />
