@@ -5,8 +5,14 @@ import { Suspense } from 'react';
 import NoteListSkeleton from './NoteListSkeleton';
 import SidebarNoteList from '@/components/SidebarNoteList';
 import SidebarSearchField from './SidebarSearchField';
+import { useTranslation } from 'app/i18n';
 
-export default async function Sidebar() {
+interface SidebarProps {
+  lng: 'zh' | 'en';
+}
+
+export default async function Sidebar({ lng }: SidebarProps) {
+  const { t } = await useTranslation(lng);
   return (
     <>
       <section className="col sidebar">
@@ -24,8 +30,8 @@ export default async function Sidebar() {
           </section>
         </Link>
         <section className="sidebar-menu" role="menubar">
-          <SidebarSearchField />
-          <EditButton>new</EditButton>
+          <SidebarSearchField lng={lng} />
+          <EditButton>{t('new')}</EditButton>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton />}>

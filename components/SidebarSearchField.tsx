@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from 'app/i18n';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
@@ -13,7 +14,12 @@ function Spinner({ active = true }) {
   );
 }
 
-export default function SidebarSearchField() {
+interface SidebarSearchFieldProps {
+  lng: 'zh' | 'en';
+}
+
+export default function SidebarSearchField({ lng }: SidebarSearchFieldProps) {
+  const t = useTranslation(lng);
   const { replace } = useRouter();
   const pathname = usePathname();
   // 非常适合在这种频繁非紧急的更新中使用，有效防止造成阻塞

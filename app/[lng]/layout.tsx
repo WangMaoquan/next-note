@@ -12,7 +12,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
   params: {
-    lng: 'zn' | 'en';
+    lng: 'zh' | 'en';
   };
 }>) {
   return (
@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <div className="container">
           <div className="main">
-            <Sidebar />
+            <Sidebar lng={lng} />
             <section className="col note-viewer">{children}</section>
           </div>
         </div>
