@@ -6,6 +6,7 @@ import NoteListSkeleton from './NoteListSkeleton';
 import SidebarNoteList from '@/components/SidebarNoteList';
 import SidebarSearchField from './SidebarSearchField';
 import { useTranslation } from 'app/i18n';
+import SidebarImport from './SidebarImport';
 
 interface SidebarProps {
   lng: 'zh' | 'en';
@@ -38,6 +39,7 @@ export default async function Sidebar({ lng }: SidebarProps) {
             <SidebarNoteList />
           </Suspense>
         </nav>
+        <SidebarImport lng={lng} />
       </section>
     </>
   );
